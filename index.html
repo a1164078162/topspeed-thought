@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width"
+      ,initial-scale="1.0,"
+      user-scalable="0,"
+      minimum-scale="1.0,"
+      maximum-scale="1.0"
+    />
+    <title>quinckness-thought</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script>
+    (function(win) {
+      var docEl = win.document.documentElement;
+      var time;
+
+      function refreshRem() {
+        var width = docEl.getBoundingClientRect().width;
+        if (width > 750) {
+          // 最大宽度
+          width = 750;
+        }
+        var rem = (width / 375) * 50;
+        docEl.style.fontSize = rem + "px";
+        ///rem用font-size:50px来进行换算
+      }
+
+      win.addEventListener(
+        "resize",
+        function() {
+          clearTimeout(time);
+          time = setTimeout(refreshRem, 1);
+        },
+        false
+      );
+      win.addEventListener(
+        "pageshow",
+        function(e) {
+          if (e.persisted) {
+            clearTimeout(time);
+            time = setTimeout(refreshRem, 1);
+          }
+        },
+        false
+      );
+      //当屏幕尺寸发生改变的时候  当页面重新加载的时候 都重新计算一下rem的值
+
+      refreshRem();
+    })(window);
+  </script>
+</html>
